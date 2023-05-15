@@ -9,8 +9,14 @@
 
 <body>
     <div class="container-md">
+
         <form action="{{ route('contact.store') }}" method="post">
             @csrf
+            @if(session()->has('message'))
+            <span class="alert alert-success" role="alert">
+                {{ session('message') }}
+            </span>
+            @endif
             <div class="mb-3">
                 <label for="inputName" class="form-label">Nome</label>
                 <input type="text" class="form-control" name="inputName" aria-describedby="nameHelp">
@@ -31,6 +37,15 @@
                 <textarea name="inputMessage" class="form-control" aria-describedby="messageHelp"></textarea>
                 <div id="messageHelp" class="form-text">Digite aqui sua Mensagem</div>
             </div>
+            @if($errors->any())
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>

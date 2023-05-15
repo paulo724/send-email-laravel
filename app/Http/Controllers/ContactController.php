@@ -16,6 +16,14 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'inputName' => 'required',
+            'inputEmail' => 'required',
+            'inputSubject' => 'required',
+            'inputMessage' => 'required'
+        ]);
+
         Mail::to('paulo.henrique724.ph@gmail.com', 'Paulo H')->send(new Contact([
             'fromName' => $request->input('inputName'),
             'fromEmail' => $request->input('inputEmail'),
@@ -23,6 +31,8 @@ class ContactController extends Controller
             'message' => $request->input('inputMessage'),
         ]));
 
-        var_dump('email send');
+        session()->flash('message', 'Email Enviado com Sucesso!');
+
+        return back();
     }
 }
