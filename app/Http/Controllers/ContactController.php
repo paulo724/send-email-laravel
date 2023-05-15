@@ -14,6 +14,9 @@ class ContactController extends Controller
         return view('contact');
     }
 
+    /**
+     * function resposável por receber os dados e enviar o email
+     */
     public function store(Request $request)
     {
 
